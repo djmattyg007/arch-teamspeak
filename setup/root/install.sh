@@ -1,19 +1,13 @@
 #!/bin/bash
 
-# exit script if return code != 0
+# Exit script if return code != 0
 set -e
 
-# define pacman packages
-pacman_packages="base-devel git"
-
-# install required pre-reqs for makepkg
-pacman -S --needed $pacman_packages --noconfirm
-
-# call aur install script (arch user repo)
+# Install any packages
 source /root/aur.sh
+aur_start
+aur_build teamspeak3-server
+aur_finish
 
-# cleanup
-yes|pacman -Scc
-rm -rf /usr/share/locale/*
-rm -rf /usr/share/man/*
-rm -rf /tmp/*
+# Cleanup
+source /root/pacman-cleanup.sh

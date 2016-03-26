@@ -1,41 +1,48 @@
 #!/bin/bash
 
-# exit script if return code != 0
+# Exit script if return code != 0
 set -e
 
-# define aur helper
-aur_helper="packer"
+aur_start() {
+    # Install packages that all PKGBUILDs automatically assume are installed
+    pacman -S --needed --noconfirm base-devel
+    # Create makepkg-user" user for building packages, as we can't and shouldn't
+    # build packages as root (although we're effectively root all the time when
+    # interacting with docker, so it's a bit of a moot point...)
+    useradd -m -s /bin/bash makepkg-user
+    echo -e "makepkg-password\nmakepkg-password" | passwd makepkg-user
+    #echo "makepkg-user ALL=(ALL)
+}
 
-# define aur packages
-aur_packages="teamspeak3-server"
+aur_finish() {
+    # Remove "makepkg-user" - we don't want unnecessary users lying around in the image
+    userdel -r makepkg-user
+    # Remove base-devel packages, except a few useful core packages
+    pacman -Ru --noconfirm $(pacman -Qgq base-devel | grep -v pacman | grep -v sed | grep -v grep | grep -v gzip)
+}
+
+aur_build() {
+    local pkg=$1
+
+    # Download and extract package files from AUR
+    local tar_path="/tmp/${pkg}.tar.gz"
+    curl -L -o ${tar_path} "https://aur.archlinux.org/cgit/aur.git/snapshop/${pkg}.tar.gz"
+    tar xvf ${tar_path} -C /tmp
+    chmod a+rwx /tmp/${pkg}
+
+    # Build and install package
+    su -c "cd /tmp/${pkg} && makepkg" - makepkg-user
+    pacman -U "/tmp/${pkg}/${pkg}-*-x86_64.pkg.tar.xs" --noconfirm
+}
+
+#tar_path="/tmp/teamspeak3-server.tar.gz"
+#curl -L -o ${tar_path} "https://aur.archlinux.org/cgit/aur.git/snapshot/teamspeak3-server.tar.gz"
+#tar xvf ${tar_path} -C /tmp
 
 # create "makepkg-user" user for makepkg
-useradd -m -s /bin/bash makepkg-user
-echo -e "makepkg-password\nmakepkg-password" | passwd makepkg-user
-echo "makepkg-user ALL=(ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo)
+#useradd -m -s /bin/bash makepkg-user
+#echo -e "makepkg-password\nmakepkg-password" | passwd makepkg-user
+#echo "makepkg-user ALL=(ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo)
 
-# download aur helper (patched version for rpc v5)
-curl -L -o "/usr/bin/$aur_helper" "https://github.com/binhex/arch-patches/raw/master/arch-packer/$aur_helper"
-chmod a+x "/usr/bin/$aur_helper"
-pacman -S --needed jansson expac jshon --noconfirm
-
-# download aur helper
-# curl -L -o "/home/makepkg-user/$aur_helper.tar.gz" "https://aur.archlinux.org/cgit/aur.git/snapshot/$aur_helper.tar.gz"
-# cd /home/makepkg-user
-# su -c "tar -xvf $aur_helper.tar.gz" - makepkg-user
-
-# install aur helper
-# su -c "cd /home/makepkg-user/$aur_helper && makepkg -s --noconfirm --needed" - makepkg-user
-# pacman -U "/home/makepkg-user/$aur_helper/$aur_helper*.tar.xz" --noconfirm
-
-# install app using aur helper
-su -c "$aur_helper -S $aur_packages --noconfirm" - makepkg-user
-
-# remove base devel excluding useful core packages
-pacman -Ru $(pacman -Qgq base-devel | grep -v pacman | grep -v sed | grep -v grep | grep -v gzip) --noconfirm
-
-# remove git
-pacman -Ru git --noconfirm
-
-# remove makepkg-user account
-userdel -r makepkg-user
+#su -c 'cd /tmp/teamspeak3-server && makepkg' - makepkg-user
+#pacman -U "/tmp/teamspeak3-server/teamspeak3-server-*-x86_64.pkg.tar.xz" --noconfirm
