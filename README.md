@@ -17,10 +17,10 @@ Latest stable TeamSpeak release, using the AUR package "teamspeak3-server".
 docker run -d \
     --net="host" \
     --name=<container name> \
-    -v <path for config files>:/config \
+    -v <path for config files>:/data \
     -v /etc/localtime:/etc/localtime:ro \
-    -e PUID=<uid for user> \
-    -e PGID=<gid for user> \
+    -e TS_UID=<uid for teamspeak user> \
+    -e TS_GID=<gid for teamspeak user> \
     djmattyg007/arch-teamspeak
 ```
 
@@ -35,11 +35,11 @@ Connect using the TeamSpeak client on `<host ip>:9987`
 docker run -d \
     --net="host" \
     --name=teamspeak \
-    -v /apps/docker/teamspeak:/config \
+    -v /apps/docker/teamspeak:/data \
     -v /etc/localtime:/etc/localtime:ro \
-    -e PUID=0 \
-    -e PGID=0 \
-    binhex/arch-teamspeak
+    -e TS_UID=997 \
+    -e TS_GID=998 \
+    djmattyg007/arch-teamspeak
 ```
 
 **Notes**
