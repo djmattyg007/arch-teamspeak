@@ -26,7 +26,7 @@ aur_build() {
 
     # Download and extract package files from AUR
     local tar_path="/tmp/${pkg}.tar.gz"
-    curl -L -o ${tar_path} "https://aur.archlinux.org/cgit/aur.git/snapshop/${pkg}.tar.gz"
+    curl -s -L -o ${tar_path} "https://aur.archlinux.org/cgit/aur.git/snapshop/${pkg}.tar.gz"
     tar xvf ${tar_path} -C /tmp
     chmod a+rwx /tmp/${pkg}
 

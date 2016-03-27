@@ -1,3 +1,5 @@
+**NOT READY FOR USE**
+
 **Application**
 
 [TeamSpeak3](https://www.teamspeak.com/)
@@ -44,7 +46,7 @@ docker run -d \
 
 This is a fork of binhex/arch-teamspeak that uses djmattyg007/arch-base and does not install an AUR helper.
 
-User ID (PUID) and Group ID (PGID) can be found by issuing the following command for the user you want to run the container as:-
+User ID (TS\_UID) and Group ID (TS\_GID) can be found by issuing the following command for the user you want to run the container as:-
 
 ```
 id <username>
