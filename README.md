@@ -18,6 +18,7 @@ docker run -d \
     --net="host" \
     --name=<container name> \
     -v <path for config files>:/teamspeak/data \
+    -v <path for logs>:/teamspeak/logs \
     -v /etc/localtime:/etc/localtime:ro \
     -e TS_UID=<uid for teamspeak user> \
     -e TS_GID=<gid for teamspeak user> \
@@ -35,7 +36,8 @@ Connect using the TeamSpeak client on `<host ip>:9987`
 docker run -d \
     --net="host" \
     --name=teamspeak \
-    -v /apps/docker/teamspeak:/teamspeak/data \
+    -v /apps/docker/teamspeak/data:/teamspeak/data \
+    -v /apps/docker/teamspeak/logs:/teamspeak/logs \
     -v /etc/localtime:/etc/localtime:ro \
     -e TS_UID=997 \
     -e TS_GID=998 \
