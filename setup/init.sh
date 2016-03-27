@@ -31,8 +31,10 @@ cd /teamspeak/data
 TS_ARGS="logpath=/teamspeak/data/logs dbsqlpath=/usr/share/teamspeak3-server/sql/"
 if [[ -r "/teamspeak/data/teamspeak3.conf" ]]; then
     # Allow overriding of options passed to ts3server
+    echo "[info] Found config override file, parsing..."
     source /teamspeak/data/teamspeak3.conf
 fi
 
 # Finally, run teamspeak.
-exec chpst -u teamspeak /usr/bin/ts3server $TS_ARGS >> ts3-stdout.log 2>> ts3-stderr.log
+echo "[info] Starting ts3server with these arguments: ${TS_ARGS}"
+exec chpst -u teamspeak /usr/bin/ts3server ${TS_ARGS} >> ts3-stdout.log 2>> ts3-stderr.log
