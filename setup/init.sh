@@ -28,7 +28,7 @@ chown -R "${PUID}":"${PGID}" /usr/bin/ts3server /usr/share/teamspeak3-server/sql
 chmod -R ug+rwX /usr/bin/ts3server /usr/share/teamspeak3-server/sql/ /var/lib/teamspeak3-server/
 
 cd /teamspeak/data
-TS_ARGS="logpath=/teamspeak/data/logs dbsqlpath=/usr/share/teamspeak3-server/sql/"
+TS_ARGS="logpath=/teamspeak/logs dbsqlpath=/usr/share/teamspeak3-server/sql/"
 if [[ -r "/teamspeak/data/teamspeak3.conf" ]]; then
     # Allow overriding of options passed to ts3server
     echo "[info] Found config override file, parsing..."
