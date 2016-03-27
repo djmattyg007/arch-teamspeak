@@ -18,19 +18,21 @@ echo "[info] Env var TS_UID defined as ${TS_UID}"
 groupmod -o -g "${TS_GID}" teamspeak
 echo "[info] Env var TS_GID defined as ${TS_GID}"
 
-# set permissions for /config volume mapping
+# Set permissions for /config volume mapping
 echo "[info] Setting permissions recursively on /teamspeak..."
 chown -R "${TS_UID}":"${TS_GID}" /teamspeak
 chmod -R ug+rwX /teamspeak
 
-# set permissions inside container
+# Set permissions inside container
 chown -R "${PUID}":"${PGID}" /usr/bin/ts3server /usr/share/teamspeak3-server/sql/ /var/lib/teamspeak3-server/
 chmod -R ug+rwX /usr/bin/ts3server /usr/share/teamspeak3-server/sql/ /var/lib/teamspeak3-server/
 
 cd /teamspeak/data
 TS_ARGS="logpath=/teamspeak/data/logs dbsqlpath=/usr/share/teamspeak3-server/sql/"
 if [[ -r "/teamspeak/data/teamspeak3.conf" ]]; then
+    # Allow overriding of options passed to ts3server
     source /teamspeak/data/teamspeak3.conf
 fi
-#exec 2>&1
+
+# Finally, run teamspeak.
 exec chpst -u teamspeak /usr/bin/ts3server $TS_ARGS >> ts3-stdout.log 2>> ts3-stderr.log

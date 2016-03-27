@@ -1,5 +1,3 @@
-**NOT READY FOR USE**
-
 **Application**
 
 [TeamSpeak3](https://www.teamspeak.com/)
@@ -16,6 +14,7 @@ Latest stable TeamSpeak release, using the AUR package "teamspeak3-server".
 ```
 docker run -d \
     --net="host" \
+    --rm=true \
     --name=<container name> \
     -v <path for config files>:/teamspeak/data \
     -v <path for logs>:/teamspeak/logs \
@@ -35,6 +34,7 @@ Connect using the TeamSpeak client on `<host ip>:9987`
 ```
 docker run -d \
     --net="host" \
+    --rm=true \
     --name=teamspeak \
     -v /apps/docker/teamspeak/data:/teamspeak/data \
     -v /apps/docker/teamspeak/logs:/teamspeak/logs \
@@ -54,4 +54,4 @@ User ID (TS\_UID) and Group ID (TS\_GID) can be found by issuing the following c
 id <username>
 ```
 
-To authenticate use the privileged key shown in /teamspeak/data/ts3-stdout.log
+To authenticate use the privileged key shown in /teamspeak/data/ts3-stderr.log

@@ -1,5 +1,7 @@
-FROM djmattyg007/arch-base:2016.03.27-3
+FROM djmattyg007/arch-base:2016.03.27-4
 MAINTAINER djmattyg007
+
+ENV TS3_IMAGE_VERSION=2016.03.27-1
 
 # Add install bash script
 COPY setup/root/*.sh /root/
