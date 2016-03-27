@@ -1,4 +1,4 @@
-FROM djmattyg007/arch-base:2016.03.27-1
+FROM djmattyg007/arch-base:2016.03.27-2
 MAINTAINER djmattyg007
 
 # Add install bash script
@@ -9,7 +9,7 @@ RUN chmod +x /root/*.sh && \
     /bin/bash /root/install.sh && \
     rm /root/*.sh
 
-RUN mkdir /etc/service/teamspeak3-server
+#RUN mkdir /etc/service/teamspeak3-server
 ADD setup/init.sh /etc/service/teamspeak3-server/run
 
 # add teamspeak script for application (custom script required to cd to sql lib)
