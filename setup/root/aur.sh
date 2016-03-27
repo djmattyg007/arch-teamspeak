@@ -32,7 +32,7 @@ aur_build() {
 
     # Build and install package
     su -c "cd /tmp/${pkg} && makepkg" - makepkg-user
-    pacman -U "/tmp/${pkg}/${pkg}-*-x86_64.pkg.tar.xs" --noconfirm
+    pacman -U /tmp/${pkg}/${pkg}-*-x86_64.pkg.tar.xz --noconfirm
 }
 
 #tar_path="/tmp/teamspeak3-server.tar.gz"
