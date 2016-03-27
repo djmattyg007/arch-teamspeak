@@ -9,7 +9,7 @@ aur_start
 aur_build teamspeak3-server
 aur_finish
 
-mkdir /data
+mkdir /teamspeak
 
 # Cleanup
 source /root/pacman-cleanup.sh

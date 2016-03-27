@@ -17,7 +17,7 @@ Latest stable TeamSpeak release, using the AUR package "teamspeak3-server".
 docker run -d \
     --net="host" \
     --name=<container name> \
-    -v <path for config files>:/data \
+    -v <path for config files>:/teamspeak/data \
     -v /etc/localtime:/etc/localtime:ro \
     -e TS_UID=<uid for teamspeak user> \
     -e TS_GID=<gid for teamspeak user> \
@@ -35,7 +35,7 @@ Connect using the TeamSpeak client on `<host ip>:9987`
 docker run -d \
     --net="host" \
     --name=teamspeak \
-    -v /apps/docker/teamspeak:/data \
+    -v /apps/docker/teamspeak:/teamspeak/data \
     -v /etc/localtime:/etc/localtime:ro \
     -e TS_UID=997 \
     -e TS_GID=998 \
@@ -46,10 +46,10 @@ docker run -d \
 
 This is a fork of binhex/arch-teamspeak that uses djmattyg007/arch-base and does not install an AUR helper.
 
-User ID (TS\_UID) and Group ID (TS\_GID) can be found by issuing the following command for the user you want to run the container as:-
+User ID (TS\_UID) and Group ID (TS\_GID) can be found by issuing the following command for the user you want to run the container as:
 
 ```
 id <username>
 ```
 
-To authenticate use the privileged key shown in /config/supervisord.log
+To authenticate use the privileged key shown in /teamspeak/data/ts3-stdout.log
