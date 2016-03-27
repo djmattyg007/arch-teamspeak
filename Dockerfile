@@ -5,7 +5,7 @@ MAINTAINER djmattyg007
 ADD setup/root/*.sh /root/
 
 # Run bash script to install teamspeak server
-RUN chmod +x /root/*.sh /home/nobody/*.sh && \
+RUN chmod +x /root/*.sh && \
     /bin/bash /root/install.sh && \
     rm /root/*.sh
 
