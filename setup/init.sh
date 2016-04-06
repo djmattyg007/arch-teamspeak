@@ -24,7 +24,7 @@ chown -R "${TS_UID}":"${TS_GID}" /teamspeak
 chmod -R ug+rwX /teamspeak
 
 # Set permissions inside container
-chown -R "${PUID}":"${PGID}" /usr/bin/ts3server /usr/share/teamspeak3-server/sql/ /var/lib/teamspeak3-server/
+chown -R "${TS_UID}":"${TS_GID}" /usr/bin/ts3server /usr/share/teamspeak3-server/sql/ /var/lib/teamspeak3-server/
 chmod -R ug+rwX /usr/bin/ts3server /usr/share/teamspeak3-server/sql/ /var/lib/teamspeak3-server/
 
 cd /teamspeak/data
