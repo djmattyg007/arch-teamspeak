@@ -3,8 +3,9 @@
 # Exit script if return code != 0
 set -e
 
+source /root/functions.sh
+
 # Install any packages
-source /root/aur.sh
 aur_start
 aur_build teamspeak3-server
 aur_finish
@@ -12,4 +13,4 @@ aur_finish
 mkdir /teamspeak
 
 # Cleanup
-source /root/pacman-cleanup.sh
+pacman_cleanup
