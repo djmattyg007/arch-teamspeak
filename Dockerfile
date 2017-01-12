@@ -1,7 +1,7 @@
-FROM djmattyg007/arch-runit-base:2016.12.19-1
+FROM djmattyg007/arch-runit-base:2017.01.12-2
 MAINTAINER djmattyg007
 
-ENV TS3IMAGE_VERSION=2016.12.19-1
+ENV TS3IMAGE_VERSION=2017.01.12-1
 
 # Add install bash script
 COPY setup/root/*.sh /root/
