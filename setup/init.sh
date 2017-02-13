@@ -37,4 +37,4 @@ fi
 
 # Finally, run teamspeak.
 echo "[info] Starting ts3server with these arguments: ${TS_ARGS}"
-exec chpst -u teamspeak /usr/bin/ts3server ${TS_ARGS} >> ts3-stdout.log 2>> ts3-stderr.log
+exec chpst -u teamspeak /usr/bin/ts3server ${TS_ARGS}
