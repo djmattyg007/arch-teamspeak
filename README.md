@@ -11,8 +11,9 @@ TeamSpeak is a proprietary voice-over-Internet Protocol (VoIP) software that all
 Latest stable TeamSpeak release, using the AUR package "teamspeak3-server".
 
 **Usage**
+
 ```
-docker run -d \
+docker run \
     --net="host" \
     --rm=true \
     --name=<container name> \
@@ -32,7 +33,7 @@ Connect using the TeamSpeak client on `<host ip>:9987`
 
 **Example**
 ```
-docker run -d \
+docker run \
     --net="host" \
     --rm=true \
     --name=teamspeak \
