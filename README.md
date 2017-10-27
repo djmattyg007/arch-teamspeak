@@ -32,6 +32,7 @@ Please replace all user variables in the above command defined by <> with the co
 Connect using the TeamSpeak client on `<host ip>:9987`
 
 **Example**
+
 ```
 docker run \
     --net="host" \
